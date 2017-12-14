@@ -11,6 +11,7 @@ import lombok.ToString;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @ToString(includeFieldNames = false)
 @EqualsAndHashCode

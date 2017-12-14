@@ -5,17 +5,16 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-@ToString
 @AllArgsConstructor
+@ToString
 @EqualsAndHashCode
 public class DailyWorkingInformation {
     @Getter
-    private final WorkingDate workingDate;
+    private WorkingDate workingDate;
     @Getter
-    private final StartTime startTime;
+    private StartTime startTime;
     @Getter
-    private final EndTime endTime;
+    private EndTime endTime;
 
     public boolean exists(){return true;}
-
 }
