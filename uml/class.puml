@@ -1,0 +1,150 @@
+@startuml
+
+package "API" #DDDDDD{
+    class 勤怠入力api<<(A,white)>>{
+            String 勤怠入力(勤務日付,始業時刻,退社時刻)
+    }
+    class 勤怠集計api<<(A,white)>>{
+            String 集計(年月)
+    }
+}
+
+package "service" #DDDDDD{
+    勤怠入力api --> 勤怠入力service
+    勤怠集計api --> 勤怠集計service
+
+    class 勤怠集計service<<(S,white)>>{
+        勤務集計List 集計(年月)
+
+    }
+    class 勤怠入力service<<(S,white)>>{
+        void 勤怠入力(勤務日付,出社時刻,退社時刻)
+    }
+}
+
+
+
+package "Domain" #DDDDDD{
+
+       package "計算" #white{
+            勤怠集計service --> 勤務集計リポジトリ
+            勤怠集計service --> 勤務集計List
+            勤務集計List "1" o-- "n" 勤務集計
+            勤務集計  ..  就業時間
+            勤務集計リポジトリ . 勤務集計List
+
+
+            class 勤務集計リポジトリ<<(R,yellow)Repository>>{
+                勤務集計List 集計(年月)
+
+            }
+            class 勤務集計List<< (V,lightblue) ValueObject >> {
+                List<勤務集計>
+                勤務集計 集計(年月)
+            }
+
+            class 就業時間<< (V,lightblue) ValueObject >> {
+                始業時刻
+                終業時刻
+                休憩時間List
+            }
+            class 勤務集計<< (V,lightblue) ValueObject >> {
+                日次勤怠情報
+                勤務時間 勤務時間計算(就業時間)
+                残業時間 残業時間計算(就業時間)
+            }
+       }
+
+       package "入力" #white{
+
+          勤怠入力service --> 勤怠入力リポジトリ
+          勤怠入力service --> 日次勤怠情報
+          日次勤怠情報 . 勤怠入力リポジトリ
+
+          日次勤怠情報 "1" o-- "1" 勤務日付
+          日次勤怠情報 "1" o-- "1" 出社時刻
+          日次勤怠情報 "1" o-- "1" 退社時刻
+          勤務集計 "1" o-- "1" 日次勤怠情報
+
+            class 勤怠入力リポジトリ<<(R,yellow)Repository>>{
+                   void 勤怠登録(日次勤怠情報)
+            }
+            class 日次勤怠情報<<(E,red)Entity>>{
+                勤務日付
+                出社時刻
+                退社時刻
+                日次勤怠情報 create(勤務日付,出社時刻,退社時刻)
+            }
+            class 勤務日付<< (V,lightblue) ValueObject >>{
+                年
+                月
+                日
+            }
+            class 出社時刻<< (V,lightblue) ValueObject >>{
+                LocalTime
+            }
+            class 退社時刻<< (V,lightblue) ValueObject >>{
+                LocalTime
+            }
+
+       }
+
+       package "会社規定" #white{
+
+            class 始業時刻<< (V,lightblue) ValueObject >>{
+                LocalTime
+                boolean is遅刻()
+            }
+            class 終業時刻<< (V,lightblue) ValueObject >>{
+                 LocalTime
+                 boolean is早退()
+             }
+             class 休憩時間リスト<< (V,lightblue) ValueObject >>{
+                 List<休憩時間>
+             }
+            class 休憩時間<< (V,lightblue) ValueObject >>{
+                休憩開始時刻
+                休憩終了時刻
+                LocalTime 休憩時間(休憩開始時刻,休憩終了時刻)
+            }
+            class 休憩開始時刻<< (V,lightblue) ValueObject >>{
+                LocalTime
+            }
+            class 休憩終了時刻<< (V,lightblue) ValueObject >>{
+                LocalTime
+            }
+            就業時間 "1" o--- "1" 休憩時間リスト
+            就業時間 "1" o-- "1" 終業時刻
+            就業時間 "1" o-- "1" 始業時刻
+            休憩時間リスト "1" o-- "n" 休憩時間
+            休憩時間 "1" o-- "1"休憩開始時刻
+            休憩時間 "1" o-- "1"休憩終了時刻
+       }
+}
+package "Datasource" #white{
+    勤怠入力リポジトリ-->勤怠入力リポジトリDb
+    勤務集計リポジトリ-->勤務集計リポジトリDb
+
+    class 勤怠入力リポジトリDb<<(D,yellow)datasource>>{
+        void 勤怠書込(日次勤怠情報)
+    }
+    class 勤務集計リポジトリDb<<(D,yellow)datasource>>{
+        勤務集計List 集計(年月)
+
+    }
+    package "QueryMapper" #white{
+        class 勤怠入力mapper<<(D,yellow)datasource>>{
+            void 勤怠書込(日次勤怠情報)
+        }
+        class 勤務集計mapper<<(D,yellow)datasource>>{
+           勤務集計List 集計(年月)
+
+        }
+        勤怠入力リポジトリDb --> 勤怠入力mapper
+        勤務集計リポジトリDb --> 勤務集計mapper
+    }
+}
+
+
+
+@enduml
