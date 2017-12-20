@@ -10,4 +10,5 @@ public class BreakEndTime {
     public BreakEndTime(String time) {
         this.time = new Time(time);
     }
+
 }

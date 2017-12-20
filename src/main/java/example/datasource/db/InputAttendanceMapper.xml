@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapperエレメントの namespace要素でこのXMLファイルが対応するQueryMapperインターフェースを指定します -->
+<mapper namespace="jp.co.biglobe.example.datasource.db.InputAttendanceMapper">
+
+    <!-- insertエレメントでデータ更新のSQLを定義します。 id要素でこのエレメントで指定したSQL文に紐付けるインタフェースメソッド名を指定します。 -->
+    <!-- SQL文の#{}で囲まれた箇所に、Javaアプリケーションが渡した値が埋め込まれます -->
+    <insert id="insert">
+        INSERT INTO attendance_management (
+        working_date,
+        start_time,
+        end_time
+        )
+        VALUES (
+        BINARY_TO_EUC(#{attendance_management.working_date.workingDate.workingDate}),
+        BINARY_TO_EUC(#{attendance_management.start_time.startTime.startTime}),
+        BINARY_TO_EUC(#{attendance_management.end_time.endTime.endTime}),
+        )
+    </insert>
+
+</mapper>

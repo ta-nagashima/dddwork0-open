@@ -6,17 +6,24 @@ import spock.lang.Unroll
 class DailyWorkingInformationSpec extends Specification {
 
     @Unroll
-    def "#input オブジェクト表示判定"() {
+    def "日次勤怠情報を生成"() {
+
+        setup:
+
         when:
-        WorkingDate workingDate = new WorkingDate(input)
+        DailyWorkingInformation dailyWorkingInformation = new DailyWorkingInformation(inputDate, inputStartTime, inputEndTime);
 
         then:
-        System.out.println(workingDate.getDate());
-        workingDate.exists() == result
+        System.out.println(dailyWorkingInformation.getWorkingDate());
+        System.out.println(dailyWorkingInformation.getStartTime());
+        System.out.println(dailyWorkingInformation.getEndTime());
 
         where:
-        input       || result
-        "20171210"  || true
-        "20001001"  || true
+        inputDate  | inputStartTime | inputEndTime
+        "20171210" | "0900"         | "1800"
+        "20170101" | "0900"         | "1800"
+        "20180308" | "0800"         | "1900"
+
+
     }
 }

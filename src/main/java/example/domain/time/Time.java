@@ -7,27 +7,30 @@ package example.domain.time;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-@ToString(includeFieldNames = false)
 @EqualsAndHashCode
 public class Time {
 
     @Getter
-    LocalTime time;
+    private LocalTime timeValue;
 
     public Time(String time) {
-        this.time = LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
+        this.timeValue = LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
     }
 
     public Time() {
         this("0000");
     }
 
-    public boolean exists(){ return true; }
+    public String toString() {
+        return this.timeValue.format(DateTimeFormatter.ofPattern("HHmm"));
+    }
+
+    public boolean exists() {
+        return true;
+    }
 
 }

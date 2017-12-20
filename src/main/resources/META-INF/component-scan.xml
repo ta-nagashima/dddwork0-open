@@ -21,5 +21,6 @@
     <!-- Service層 -->
 
     <!-- DataSource層 -->
+    <context:component-scan base-package="example.datasource" />
 
 </beans>

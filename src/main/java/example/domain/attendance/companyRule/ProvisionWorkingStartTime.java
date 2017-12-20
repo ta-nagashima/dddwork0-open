@@ -6,6 +6,6 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
-public class WorkingStartTimeRule {
+public class ProvisionWorkingStartTime {
 
 }

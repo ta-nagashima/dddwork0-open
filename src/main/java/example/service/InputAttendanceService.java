@@ -1,13 +1,21 @@
 package example.service;
 
-import example.domain.time.Time;
-import lombok.Getter;
+import example.domain.attendance.input.DailyWorkingInformation;
+import example.domain.attendance.input.InputAttendanceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class InputAttendanceService {
-    @Getter
-    private Time time;
 
-    public InputAttendanceService(String time) {
-        this.time = new Time(time);
+    private InputAttendanceRepository inputAttendanceRepository;
+
+    @Autowired
+    public void InputAttendanceService(InputAttendanceRepository inputAttendanceRepository) {
+        this.inputAttendanceRepository = inputAttendanceRepository;
+    }
+
+    public void input(DailyWorkingInformation dailyWorkingInformation) {
+        inputAttendanceRepository.registerDailyWorkingInformation(dailyWorkingInformation);
     }
 }
