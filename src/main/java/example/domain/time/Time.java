@@ -15,22 +15,53 @@ import java.time.format.DateTimeFormatter;
 public class Time {
 
     @Getter
-    private LocalTime timeValue;
+    private LocalTime time;
 
+    /**
+     * @param time
+     */
     public Time(String time) {
-        this.timeValue = LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
+        try {
+            this.time = LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("引数が不正です");
+        }
     }
 
     public Time() {
         this("0000");
     }
 
+    /**
+     *
+     * @return
+     */
+    public String getTimeToHHMM() {
+        return toString();
+    }
+
     public String toString() {
-        return this.timeValue.format(DateTimeFormatter.ofPattern("HHmm"));
+        return this.time.format(DateTimeFormatter.ofPattern("HHmm"));
     }
 
     public boolean exists() {
         return true;
+    }
+
+    public int getHour() {
+        return time.getHour();
+    }
+
+    public int getMinute() {
+        return time.getMinute();
+    }
+
+    public boolean isAfter(Time other) {
+        return this.time.isAfter(other.getTime());
+    }
+
+    public boolean isBefore(Time other) {
+        return this.time.isBefore(other.getTime());
     }
 
 }

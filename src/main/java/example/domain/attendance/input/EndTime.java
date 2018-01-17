@@ -5,6 +5,10 @@ import lombok.Getter;
 
 public class EndTime {
 
+    /**
+     * @param time 退社時刻
+     */
+
     @Getter
     private Time time;
 

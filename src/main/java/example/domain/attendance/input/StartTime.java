@@ -6,12 +6,9 @@ import lombok.Getter;
 import java.time.LocalTime;
 
 public class StartTime {
-    private final static Time PROVISIONTIME;
-
-    static {
-        PROVISIONTIME = new Time("0900");
-    }
-
+    /**
+     * @param time 出社時刻
+     */
     @Getter
     private Time time;
 
@@ -19,9 +16,8 @@ public class StartTime {
         this.time = new Time(time);
     }
 
-    public boolean isInProvisionTime() {
-        LocalTime temp = PROVISIONTIME.getTimeValue();
-        return this.time.getTimeValue().compareTo(temp) <= 0;
+    public boolean exists() {
+        return true;
     }
 }
 

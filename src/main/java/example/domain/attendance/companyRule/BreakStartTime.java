@@ -1,8 +1,12 @@
 package example.domain.attendance.companyRule;
 
+import example.domain.attendance.input.DailyWorkingHistory;
 import example.domain.time.Time;
 import lombok.Getter;
 
+/**
+ * 休憩開始時刻
+ */
 public class BreakStartTime {
     @Getter
     private Time time;

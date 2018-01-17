@@ -1,4 +1,4 @@
 package example.domain.attendance.total;
 
-public class TotalWorkingList {
+public class DailyWorkingHistoryList {
 }

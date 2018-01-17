@@ -5,7 +5,7 @@ import spock.lang.Unroll
 
 class WorkingDateSpec extends Specification {
     @Unroll
-    def "inputCase: #input"() {
+    def "勤務日生成: #input"() {
 
         setup:
 

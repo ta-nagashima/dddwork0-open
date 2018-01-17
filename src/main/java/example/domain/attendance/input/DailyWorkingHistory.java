@@ -9,17 +9,24 @@ import lombok.ToString;
 import java.time.LocalDate;
 
 /**
- * Entity 日次勤怠情報
+ * Entity 勤怠履歴
  */
 
+
 @EqualsAndHashCode
-public class DailyWorkingInformation{
+public class DailyWorkingHistory {
 
     private WorkingDate workingDate;
     private StartTime startTime;
     private EndTime endTime;
 
-    public DailyWorkingInformation(String date,String startTime,String endTime){
+    /**
+     * コンストラクタでparam全て作成
+     * @param date
+     * @param startTime
+     * @param endTime
+     */
+    public DailyWorkingHistory(String date, String startTime, String endTime){
         this.workingDate = new WorkingDate(date);
         this.startTime = new StartTime(startTime);
         this.endTime = new EndTime(endTime);
