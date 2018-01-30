@@ -21,7 +21,7 @@ public class DailyWorkingHistory {
     private EndTime endTime;
 
     /**
-     * コンストラクタでparam全て作成
+     * コンストラクタ
      * @param date
      * @param startTime
      * @param endTime

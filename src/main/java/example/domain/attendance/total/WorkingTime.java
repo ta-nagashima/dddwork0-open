@@ -1,13 +1,13 @@
 package example.domain.attendance.total;
 
-import example.domain.hours.Minutes;
+import example.domain.minute.Minutes;
 
 public class WorkingTime {
 
     private Minutes minutes;
 
     public WorkingTime(){
-        this.minutes = new Minutes();
+
     }
 
     public Minutes workingTimeCalc(WorkingTime workingTime){

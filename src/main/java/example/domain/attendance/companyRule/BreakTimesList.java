@@ -2,7 +2,7 @@ package example.domain.attendance.companyRule;
 
 
 import example.domain.attendance.input.DailyWorkingHistory;
-import example.domain.hours.Minutes;
+import example.domain.minute.Minutes;
 
 import java.util.List;
 

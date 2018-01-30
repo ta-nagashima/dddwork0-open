@@ -1,6 +1,6 @@
 package example.domain.attendance.total;
 
-import example.domain.hours.Minutes;
+import example.domain.minute.Minutes;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
